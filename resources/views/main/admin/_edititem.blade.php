@@ -70,6 +70,12 @@
                                             <option value="Rim" id="Rim">Rim</option>
                                             <option value="Ktk" id="Ktk">Ktk</option>
                                             <option value="Duz" id="Duz">Duz</option>
+                                            <option value="Box" id="Box">Box</option>
+                                            <option value="Tube" id="Tube">Tube</option>
+                                            <option value="Set" id="Set">Tube</option>
+                                            <option value="Pack" id="Pack">Pack</option>
+                                            <option value="Roll" id="Roll">Roll</option>
+                                            <option value="Ream" id="Ream">Ream</option>
                                         </select>
                                         {{-- <input type="text" name="item_unit" id="item_unit"> --}}
                                     </td>

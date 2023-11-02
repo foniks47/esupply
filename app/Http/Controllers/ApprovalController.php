@@ -49,7 +49,10 @@ class ApprovalController extends Controller
             $transactiondetail = TransactionDetail::firstWhere('id', $separate[0]);
             $items = Items::firstWhere('id', $transactiondetail->items_id);
             // echo $items->id . "<br>";
-            TransactionDetail::firstWhere('id', $separate[0])->update(['pic_qty' => $separate[1]]);
+            TransactionDetail::firstWhere('id', $separate[0])->update([
+                'pic_qty' => $separate[1],
+                'transaction_total_price' => $separate[1] * $items->price
+            ]);
             Items::firstWhere('id', $transactiondetail->items_id)->update(['item_stock' => $items->item_stock - $separate[1]]);
         }
         // return "";

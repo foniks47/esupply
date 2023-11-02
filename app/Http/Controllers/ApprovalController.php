@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Items;
 use App\Models\Notification;
 use App\Models\Transaction;
 use App\Models\TransactionDetail;
@@ -45,8 +46,13 @@ class ApprovalController extends Controller
         $arrayvalue = explode(",", $detailvalue);
         foreach ($arrayvalue as $value) {
             $separate = explode("|", $value);
+            $transactiondetail = TransactionDetail::firstWhere('id', $separate[0]);
+            $items = Items::firstWhere('id', $transactiondetail->items_id);
+            // echo $items->id . "<br>";
             TransactionDetail::firstWhere('id', $separate[0])->update(['pic_qty' => $separate[1]]);
+            Items::firstWhere('id', $transactiondetail->items_id)->update(['item_stock' => $items->item_stock - $separate[1]]);
         }
+        // return "";
         $transaction = Transaction::firstWhere('id', ($request->transactionidappr ?? $request->transactionidrej));
         $newnotification = new Notification([
             'transaction_id' => $request->transactionidappr ?? $request->transactionidrej,

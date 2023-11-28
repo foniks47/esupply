@@ -203,8 +203,8 @@
             });
             $(document).on('click', '#b-reject', function(e) {
                 // var getvaluefromtext = document.getElementById("inputnote").value;
-                document.getElementById("hiddennotereject").value = getvaluefromtext;
-                var notevalue = document.getElementById("hiddennotereject").value;
+                // document.getElementById("hiddennotereject").value = getvaluefromtext;
+                // var notevalue = document.getElementById("hiddennotereject").value;
                 document.getElementById("reject").submit();
             });
             $(document).on('click', '.btn-update', function(e) {

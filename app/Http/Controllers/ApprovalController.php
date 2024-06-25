@@ -243,4 +243,17 @@ class ApprovalController extends Controller
             ]);
         }
     }
+
+    public function pending()
+    {
+        $transaction = Transaction::where('created_at', '>', now()->subDays(31)->endOfDay())
+                                    ->whereHas('user', function ($query){
+                                        $query->where('id_org_unit', auth()->user()->id_org_unit);
+                                    })
+                                    ->where('purchase_type', 'Purchase Request Proposal')->get();
+        return view('main.appr.pending', [
+            "title" =>  "Pending Approval",
+            "transaction" => $transaction
+        ]);
+    }
 }

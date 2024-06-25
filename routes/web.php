@@ -62,6 +62,8 @@ Route::post('/approval/download', [DownloadController::class, 'purchase'])->name
 Route::get('/approval/pic2', [ApprovalController::class, 'pic'])->name('approval.pic2');
 Route::post('/approval/pic2', [ApprovalController::class, 'approvepic'])->name('approval.approvepic2');
 
+Route::get('/approval/pending', [ApprovalController::class, 'pending'])->name('approval.pending')->middleware('auth');
+
 
 Route::post('/admin/additem', [AdministrationController::class, 'additem'])->name('admin.additem')->middleware('auth');
 Route::post('/admin/item', [AdministrationController::class, 'saveitem'])->name('admin.saveitem')->middleware('auth');

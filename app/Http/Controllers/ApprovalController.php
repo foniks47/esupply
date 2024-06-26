@@ -246,13 +246,21 @@ class ApprovalController extends Controller
 
     public function pending()
     {
-        $transaction = Transaction::where('created_at', '>', now()->subDays(31)->endOfDay())
-                                    ->whereHas('user', function ($query){
+        $transaction = Transaction::whereHas('user', function ($query){
                                         $query->where('id_org_unit', auth()->user()->id_org_unit);
                                     })
-                                    ->where('purchase_type', 'Purchase Request Proposal')->get();
+                                    ->where('purchase_type', 'Purchase Request Proposal')->where('tl_approval', 'Pending')->get();
         return view('main.appr.pending', [
             "title" =>  "Pending Approval",
+            "transaction" => $transaction
+        ]);
+    }
+
+    public function pending_ga()
+    {
+        $transaction = Transaction::where('purchase_type', 'Purchase Request Proposal')->where('tl_approval', 'Approved')->get();
+        return view('main.appr.pending_ga', [
+            "title" =>  "Pending GA Approval",
             "transaction" => $transaction
         ]);
     }

@@ -138,6 +138,7 @@
                                     @endif
                                 @else
                                 @endif
+
                             </p>
                         </a>
 
@@ -155,7 +156,7 @@
 
                                 </li>
                             @endcanany
-                            @canany(['tluser', 'admin'])
+                            {{-- @canany(['tluser', 'admin'])
                                 <li class="nav-item">
                                     <a href="{{ route('approval.tluser') }}" class="nav-link {{ request()->is('approval/tluser*') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
@@ -166,8 +167,8 @@
                                         @endif
                                     </a>
                                 </li>
-                            @endcanany
-                            @canany(['tlgam', 'admin'])
+                            @endcanany --}}
+                            {{-- @canany(['tlgam', 'admin'])
                                 <li class="nav-item">
                                     <a href="{{ route('approval.tlgam') }}" class="nav-link {{ request()->is('approval/tlgam*') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
@@ -178,7 +179,33 @@
                                         @endif
                                     </a>
                                 </li>
-                            @endcanany
+                            @endcanany --}}
+
+                            @if (auth()->user()->isApprover())
+                            <li class="nav-item">
+                                <a href="{{ route('approval.pending') }}" class="nav-link {{ request()->is('approval/pending') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Pending TL</p>
+                                    {{-- @if ($notiftlgamapproverequest == 0)
+                                    @else
+                                        <span class="badge badge-danger right">{{ $notiftlgamapproverequest }}</span>
+                                    @endif --}}
+                                </a>
+                            </li>
+                            @endif
+
+                            @if(auth()->user()->is_GA_TL_ATL())
+                            <li class="nav-item">
+                                <a href="{{ route('approval.pending_ga') }}" class="nav-link {{ request()->is('approval/pending_ga*') ? 'active' : '' }}">
+                                    <i class="far fa-circle nav-icon"></i>
+                                    <p>Pending GA TL</p>
+                                    {{-- @if ($notiftlgamapproverequest == 0)
+                                    @else
+                                        <span class="badge badge-danger right">{{ $notiftlgamapproverequest }}</span>
+                                    @endif --}}
+                                </a>
+                            </li>
+                            @endif
                         </ul>
                     </li>
                 @endcanany

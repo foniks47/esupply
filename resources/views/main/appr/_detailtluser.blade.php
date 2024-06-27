@@ -63,8 +63,8 @@
                                                 <th>Unit</th>
                                                 <th style="text-align: center">Qty</th>
                                                 <th style="text-align: center">TL Adjustment</th>
-                                                <th style="text-align: center">GAM PIC Adjustment</th>
-                                                <th style="text-align: center">GAM TL Adjustment</th>
+                                                {{-- <th style="text-align: center">GAM PIC Adjustment</th> --}}
+                                                <th style="text-align: center">GAM Adjustment</th>
                                                 {{-- <th style="text-align: center">Apply Adjustment</th> --}}
                                             </tr>
                                         </thead>
@@ -297,8 +297,8 @@
                                 cell4.innerHTML = response.transaction.detail[i].qty;
                                 // cell5.innerHTML = response.transaction.detail[i].qty;
                                 cell6.innerHTML = response.transaction.detail[i].pic_qty; //tl adjustment
-                                cell7.innerHTML = response.transaction.detail[i]
-                                    .tlgam_qty; //gam tl adjustment
+                                // cell7.innerHTML = response.transaction.detail[i]
+                                //     .tlgam_qty; //gam tl adjustment
                                 // var hidden = document.createElement("INPUT");
                                 var x = document.createElement("INPUT");
                                 var iddetail = response.transaction.detail[i].id;

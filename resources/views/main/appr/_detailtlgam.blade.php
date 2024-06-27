@@ -74,7 +74,7 @@
                                                 <th>Unit</th>
                                                 <th style="text-align: center">Qty</th>
                                                 <th style="text-align: center">TL Adjustment</th>
-                                                <th style="text-align: center">GAM TL Adjustment</th>
+                                                <th style="text-align: center">GAM Adjustment</th>
                                                 <th style="text-align: center">Price per-unit</th>
                                                 <th style="text-align: center">Total Price</th>
                                                 {{-- <th style="text-align: center">Vendor</th> --}}

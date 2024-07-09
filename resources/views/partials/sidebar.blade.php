@@ -148,9 +148,9 @@
                                     <a href="{{ route('approval.pic') }}" class="nav-link {{ request()->is('approval/pic*') ? 'active' : '' }}">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>PIC</p>
-                                        @if ($notifpicapproverequest + $notifpicapprovedirect == 0)
+                                        @if ($notifpicapprovedirect == 0)
                                         @else
-                                            <span class="badge badge-danger right">{{ $notifpicapproverequest + $notifpicapprovedirect }}</span>
+                                            <span class="badge badge-danger right">{{ $notifpicapprovedirect }}</span>
                                         @endif
                                     </a>
 

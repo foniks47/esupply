@@ -18,13 +18,12 @@
                 <ul class="navbar-nav ml-auto">
                     <!-- Messages Dropdown Menu -->
                     <!-- Notifications Dropdown Menu -->
-                    <!-- Notifications Dropdown Menu -->
                     @canany(['pic', 'tluser', 'tlgam', 'admin'])
                         <li class="nav-item dropdown">
                             <a class="nav-link" data-toggle="dropdown" href="#">
                                 <i class="far fa-bell"></i>
                                 <span
-                                    class="badge badge-warning navbar-badge">{{ $notifpicapproverequest + $notifpicapprovedirect + $notiftluserapproverequest + $notiftlgamapproverequest }}</span>
+                                    class="badge badge-danger navbar-badge">{{ $notifpicapproverequest + $notifpicapprovedirect + $notiftluserapproverequest + $notiftlgamapproverequest }}</span>
                             </a>
                             <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
                                 <span
@@ -59,7 +58,7 @@
                                     </a>
                                     <div class="dropdown-divider"></div>
                                 @endcanany
-                                {{-- <a href="#" class="dropdown-item dropdown-footer">See All Notifications</a> --}}
+
                             </div>
                         </li>
                     @endcanany

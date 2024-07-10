@@ -239,13 +239,7 @@
                                 </a>
 
                             </li> --}}
-                            <li class="nav-item">
-                                <a href="#" class="nav-link ">
-                                    <i class="far fa-circle nav-icon"></i>
-                                    <p>Result</p>
-                                </a>
 
-                            </li>
                             <li class="nav-item">
                                 <a href="{{ route('admin.masteritem') }}" class="nav-link  {{ request()->is('admin/masteritem*') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>

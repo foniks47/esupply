@@ -72,7 +72,7 @@ class LoginController extends Controller
                 return redirect()->intended('/');
             } else {
                 return back()->with('loginError', 'SSO failed, user not found');
-            }
+            }y
         } else {
             $employee = Http::get(config('api.employee.base_url_hash') . $getid[1] . '')->object();
             foreach ($employee as $key => $value) {

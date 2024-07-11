@@ -18,50 +18,62 @@
                 <ul class="navbar-nav ml-auto">
                     <!-- Messages Dropdown Menu -->
                     <!-- Notifications Dropdown Menu -->
-                    @canany(['pic', 'tluser', 'tlgam', 'admin'])
-                        <li class="nav-item dropdown">
-                            <a class="nav-link" data-toggle="dropdown" href="#">
-                                <i class="far fa-bell"></i>
-                                <span
-                                    class="badge badge-danger navbar-badge">{{ $notifpicapproverequest + $notifpicapprovedirect + $notiftluserapproverequest + $notiftlgamapproverequest }}</span>
-                            </a>
-                            <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                                <span
-                                    class="dropdown-item dropdown-header">{{ $notifpicapproverequest + $notifpicapprovedirect + $notiftluserapproverequest + $notiftlgamapproverequest }}
-                                    Approval</span>
-                                <div class="dropdown-divider"></div>
-                                @canany(['pic', 'admin'])
-                                    <a href="{{ route('approval.pic') }}" class="dropdown-item">
-                                        <i class="fas fa-file mr-2"></i> {{ $notifpicapprovedirect }} Direct Pick Up
-                                        Approval
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                @endcanany
-                                @canany(['pic', 'admin'])
-                                    <a href="{{ route('approval.pic') }}" class="dropdown-item">
-                                        <i class="fas fa-file mr-2"></i> {{ $notifpicapproverequest }} Purchase Request
-                                        Approval
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                @endcanany
-                                @canany(['tluser', 'admin'])
-                                    <a href="{{ route('approval.tluser') }}" class="dropdown-item">
-                                        <i class="fas fa-file mr-2"></i> {{ $notiftluserapproverequest }} Purchase Request
-                                        Approval
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                @endcanany
-                                @canany(['tlgam', 'admin'])
-                                    <a href="{{ route('approval.tlgam') }}" class="dropdown-item">
-                                        <i class="fas fa-file mr-2"></i> {{ $notiftlgamapproverequest }} Purchase Request
-                                        Approval
-                                    </a>
-                                    <div class="dropdown-divider"></div>
-                                @endcanany
 
-                            </div>
-                        </li>
-                    @endcanany
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" data-toggle="dropdown" href="#">
+                            <i class="far fa-bell"></i>
+                            @if (auth()->user()->is_GA_TL_ATL())
+                            <span class="badge badge-danger navbar-badge">
+                                {{  $notiftlgamapproverequest }}
+                            </span>
+                            @endif
+
+                            @if (auth()->user()->isPIC())
+                            <span class="badge badge-danger navbar-badge">
+                                {{  $notifpicapprovedirect }}
+                            </span>
+                            @endif
+
+                            @if (auth()->user()->isApprover())
+                            <span class="badge badge-danger navbar-badge">
+                                {{  $notiftluserapproverequest }}
+                            </span>
+                            @endif
+
+                            @if (auth()->user()->isAdmin())
+                            <span class="badge badge-danger navbar-badge">
+                                {{  $notifpicapprovedirect  + $notiftluserapproverequest + $notiftlgamapproverequest }}
+                            </span>
+                            @endif
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+
+
+                            @if ((auth()->user()->is_GA_TL_ATL()) or (auth()->user()->isAdmin()))
+                            <a href="{{ route('approval.pending_ga') }}" class="dropdown-item">
+                                <i class="fas fa-file mr-2"></i> {{ $notiftlgamapproverequest }} Purchase Request
+                                Approvals {!! (auth()->user()->isAdmin()) ? '<span class="text-red">(GA TL)</span>' : '' !!}
+                            </a>
+                            @endif
+
+                            @if ((auth()->user()->isPIC()) or (auth()->user()->isAdmin()))
+                            <a href="{{ route('approval.pic') }}" class="dropdown-item">
+                                <i class="fas fa-file mr-2"></i> {{ $notifpicapprovedirect }} Direct Pick Up
+                                Approvals
+                            </a>
+                            @endif
+
+                            @if ((auth()->user()->isApprover()) or (auth()->user()->isAdmin()))
+                            <a href="{{ route('approval.pending') }}" class="dropdown-item">
+                                <i class="fas fa-file mr-2"></i> {{ $notiftluserapproverequest }} Purchase Request
+                                Approvals {!! (auth()->user()->isAdmin()) ? '<span class="text-red">(TL)</span>' : '' !!}
+                            </a>
+                            @endif
+                            <div class="dropdown-divider"></div>
+
+                        </div>
+                    </li>
+
                     <li class="nav-item">
                         <a data-toggle="modal" data-target="#logoutModal" href="#" type="submit"
                             class="btn btn-sm"><i class="fa fa-sign-out"></i> Logout</a>

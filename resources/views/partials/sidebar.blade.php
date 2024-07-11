@@ -17,6 +17,7 @@
     }
 @endphp --}}
 
+
 <aside class="main-sidebar elevation-4 sidebar-light-primary">
     <!-- Brand Logo -->
     <a href="{{ url('/') }}" class="brand-link">
@@ -122,19 +123,19 @@
                                 Approval
                                 <i class="right fas fa-angle-left"></i>
                                 @if (auth()->user()->priv == 'pic')
-                                    @if ($notifpicapproverequest + $notifpicapprovedirect == 0)
+                                    @if ($notifpicapprovedirect == 0)
                                     @else
-                                        <span class="badge badge-danger right">{{ $notifpicapproverequest + $notifpicapprovedirect }}</span>
+                                        <span class="badge badge-danger right">{{ $notifpicapprovedirect }}</span>
                                     @endif
-                                @elseif (auth()->user()->priv == 'tluser')
+                                @elseif (auth()->user()->priv == 'admin')
+                                    @if ($notifpicapprovedirect + $notiftlgamapproverequest + $notiftluserapproverequest == 0)
+                                    @else
+                                        <span class="badge badge-danger right">{{ $notifpicapprovedirect + $notiftlgamapproverequest + $notiftluserapproverequest }}</span>
+                                    @endif
+                                @elseif (auth()->user()->isApprover())
                                     @if ($notiftluserapproverequest == 0)
                                     @else
                                         <span class="badge badge-danger right">{{ $notiftluserapproverequest }}</span>
-                                    @endif
-                                @elseif (auth()->user()->priv == 'tlgam')
-                                    @if ($notiftlgamapproverequest == 0)
-                                    @else
-                                        <span class="badge badge-danger right">{{ $notiftlgamapproverequest }}</span>
                                     @endif
                                 @else
                                 @endif
@@ -156,40 +157,16 @@
 
                                 </li>
                             @endcanany
-                            {{-- @canany(['tluser', 'admin'])
-                                <li class="nav-item">
-                                    <a href="{{ route('approval.tluser') }}" class="nav-link {{ request()->is('approval/tluser*') ? 'active' : '' }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>TL User</p>
-                                        @if ($notiftluserapproverequest == 0)
-                                        @else
-                                            <span class="badge badge-danger right">{{ $notiftluserapproverequest }}</span>
-                                        @endif
-                                    </a>
-                                </li>
-                            @endcanany --}}
-                            {{-- @canany(['tlgam', 'admin'])
-                                <li class="nav-item">
-                                    <a href="{{ route('approval.tlgam') }}" class="nav-link {{ request()->is('approval/tlgam*') ? 'active' : '' }}">
-                                        <i class="far fa-circle nav-icon"></i>
-                                        <p>TL GAM</p>
-                                        @if ($notiftlgamapproverequest == 0)
-                                        @else
-                                            <span class="badge badge-danger right">{{ $notiftlgamapproverequest }}</span>
-                                        @endif
-                                    </a>
-                                </li>
-                            @endcanany --}}
 
                             @if (auth()->user()->isApprover())
                             <li class="nav-item">
                                 <a href="{{ route('approval.pending') }}" class="nav-link {{ request()->is('approval/pending') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Pending TL</p>
-                                    {{-- @if ($notiftlgamapproverequest == 0)
+                                    @if ($notiftluserapproverequest == 0)
                                     @else
-                                        <span class="badge badge-danger right">{{ $notiftlgamapproverequest }}</span>
-                                    @endif --}}
+                                        <span class="badge badge-danger right">{{ $notiftluserapproverequest }}</span>
+                                    @endif
                                 </a>
                             </li>
                             @endif
@@ -199,16 +176,18 @@
                                 <a href="{{ route('approval.pending_ga') }}" class="nav-link {{ request()->is('approval/pending_ga*') ? 'active' : '' }}">
                                     <i class="far fa-circle nav-icon"></i>
                                     <p>Pending GA TL</p>
-                                    {{-- @if ($notiftlgamapproverequest == 0)
+                                    @if ($notiftlgamapproverequest == 0)
                                     @else
                                         <span class="badge badge-danger right">{{ $notiftlgamapproverequest }}</span>
-                                    @endif --}}
+                                    @endif
                                 </a>
                             </li>
                             @endif
+
                         </ul>
                     </li>
                 @endcanany
+
                 @canany(['pic', 'admin'])
                     <li class="nav-item  {{ request()->is('admin*') ? 'menu-is-opening menu-open' : '' }}">
                         <a href="#" class="nav-link {{ request()->is('admin*') ? 'active' : '' }}">

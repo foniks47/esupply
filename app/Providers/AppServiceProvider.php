@@ -34,10 +34,10 @@ class AppServiceProvider extends ServiceProvider
         // });
 
         view()->composer(['layouts.master'], function ($view) {
-            $view->with('notifpicapproverequest', Transaction::where('pic_approver', auth()->user()->id_user_me)->where('purchase_type', 'Purchase Request Proposal')->where('pic_approval', 'Pending')->count())
-                ->with('notifpicapprovedirect', Transaction::where('pic_approver', auth()->user()->id_user_me)->where('purchase_type', 'Direct Pick Up')->where('pic_approval', 'Pending')->count())
-                ->with('notiftluserapproverequest', Transaction::where('tl_approver', auth()->user()->id_user_me)->where('purchase_type', 'Purchase Request Proposal')->where('tl_approval', 'Pending')->count())
-                ->with('notiftlgamapproverequest', Transaction::where('tlgam_approver', auth()->user()->id_user_me)->where('purchase_type', 'Purchase Request Proposal')->where('tlgam_approval', 'Pending')->count());
+            $view->with('transaction', Transaction::where('created_at', '>', now()->subDays(31)->endOfDay())->get())
+                ->with('pr_trans', Transaction::where('created_at', '>', now()->subDays(31)->endOfDay())->whereHas('user', function ($query){
+                    $query->where('id_org_unit', auth()->user()->id_org_unit);
+                })->where('purchase_type', 'Purchase Request Proposal')->get());
         });
 
 

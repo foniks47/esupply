@@ -14,7 +14,8 @@ class ApprovalController extends Controller
     public function pic()
     {
         // $transaction = Transaction::where('pic_approval', 'Pending')->get();
-        $transaction = Transaction::where('created_at', '>', now()->subDays(31)->endOfDay())->get();
+        //$transaction = Transaction::where('created_at', '>', now()->subDays(31)->endOfDay())->get();
+        $transaction = Transaction::where('created_at', '>', now()->subDays(31)->endOfDay())->where('purchase_type', 'Direct Pick Up')->where('pic_approval', 'Pending')->get();
         return view('main.appr.pic', [
             "title" =>  "PIC Approval",
             "transaction" => $transaction
@@ -246,7 +247,7 @@ class ApprovalController extends Controller
 
     public function pending()
     {
-        $transaction = Transaction::whereHas('user', function ($query){
+        $transaction = Transaction::where('created_at', '>', now()->subDays(31)->endOfDay())->whereHas('user', function ($query){
                                         $query->where('id_org_unit', auth()->user()->id_org_unit);
                                     })
                                     ->where('purchase_type', 'Purchase Request Proposal')->where('tl_approval', 'Pending')->get();
@@ -258,7 +259,7 @@ class ApprovalController extends Controller
 
     public function pending_ga()
     {
-        $transaction = Transaction::where('purchase_type', 'Purchase Request Proposal')->where('tl_approval', 'Approved')->get();
+        $transaction = Transaction::where('created_at', '>', now()->subDays(31)->endOfDay())->where('purchase_type', 'Purchase Request Proposal')->where('tl_approval', 'Approved')->get();
         return view('main.appr.pending_ga', [
             "title" =>  "Pending GA Approval",
             "transaction" => $transaction

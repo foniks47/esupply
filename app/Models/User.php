@@ -53,4 +53,14 @@ class User extends Authenticatable
     {
         return ((($this->id_job_position === 'JP3') or ($this->id_job_position === 'JP15') or ($this->id_job_position === 'JP17') or ($this->id_job_position === 'JP36')) and ($this->id_org_unit === 'OU78'));
     }
+
+    public function isAdmin()
+    {
+        return $this->priv === 'admin';
+    }
+
+    public function isPIC()
+    {
+        return $this->priv === 'pic';
+    }
 }

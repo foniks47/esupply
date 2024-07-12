@@ -296,4 +296,48 @@ class ApprovalController extends Controller
             "transaction" => $transaction
         ]);
     }
+
+    public function approve_ga_tl(Request $request)
+    {
+        //return $request;
+        if ($request->hiddenvalue) {
+            $detailvalue = $request->hiddenvalue;
+            $arrayvalue = explode(",", $detailvalue);
+            foreach ($arrayvalue as $value) {
+                $separate = explode("|", $value);
+                $getprice = TransactionDetail::firstWhere('id', $separate[0]);
+                TransactionDetail::firstWhere('id', $separate[0])->update([
+                    'tlgam_qty' => $separate[1],
+                    'transaction_total_price' => $separate[1] * $getprice->transaction_price
+                ]);
+            }
+        }
+        Transaction::firstWhere('id', ($request->transactionidappr ?? $request->transactionidrej))->update(['tlgam_approval' => $request->process]);
+        $transaction = Transaction::firstWhere('id', ($request->transactionidappr ?? $request->transactionidrej));
+        if ($request->process == 'Approved') {
+            if ($transaction->purchase_type == 'Purchase Request Proposal') {
+                if ($transaction->tl_approval == 'Approved') {
+                    Transaction::firstWhere('id', ($request->transactionidappr ?? $request->transactionidrej))->update(['status' => 'On Progress']);
+                }
+            }
+        }
+        return to_route('approval.pending_ga')->with('success', 'Successfully processed');
+    }
+
+    public function savedata_tlgam(Request $request)
+    {
+        // return $request;
+        $detailvalue = $request->hiddenvalue;
+        $arrayvalue = explode(",", $detailvalue);
+        foreach ($arrayvalue as $value) {
+            $separate = explode("|", $value);
+            $getprice = TransactionDetail::firstWhere('id', $separate[0]);
+            TransactionDetail::firstWhere('id', $separate[0])->update([
+                'tlgam_qty' => $separate[1],
+                'transaction_total_price' => $separate[1] * $getprice->transaction_price
+            ]);
+        }
+        // Transaction::firstWhere('id', ($request->transactionidappr ?? $request->transactionidrej))->update(['tlgam_approval' => $request->process]);
+        return to_route('approval.pending_ga')->with('success', 'Successfully processed');
+    }
 }

@@ -1,23 +1,9 @@
 <div class="modal fade" id="detailModal" role="dialog" aria-labelledby="detailTransaction" aria-hidden="true">
     <div class="modal-dialog modal-xl" role="document">
         <div class="modal-content">
-            {{-- <form action="" method="POST"> --}}
-            {{-- @csrf --}}
+
             <div class="modal-header">
-                <h5 class="modal-title" id="detailTransactionLabel"><span id="purchase_type"></span></h5>&nbsp;&nbsp;
-                <form name="form1" id="form1" method="POST" action="{{ route('download.purchase') }}">
-                    @csrf
-                    <input type="hidden" name="transaction_id" id="transaction_id">
-                    {{-- <input type="hidden" name="slug" id="slug" value="{{ $assesment->slug }}"> --}}
-                    <button class="btn btn-success">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-download" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round">
-                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                            <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2"></path>
-                            <path d="M7 11l5 5l5 -5"></path>
-                            <path d="M12 4l0 12"></path>
-                        </svg>
-                    </button>
-                </form>
+                <h5 class="modal-title" id="detailTransactionLabel"><span id="purchase_type"></span></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -27,18 +13,17 @@
                 <div class="row">
                     <div class="col-12">
 
-
                         <!-- Main content -->
                         <div class="invoice p-3 mb-3">
                             <!-- title row -->
                             <div class="row">
                                 <div class="col-12">
                                     <h4>
-                                        <img src="{{ asset('pic/') . '/logokp.png' }}" alt="Krakatau Posco" class="brand-image" style="height: 20px;">
+                                        <img src="{{ asset('pic/') . '/logokp.png' }}" alt="Krakatau Posco"
+                                            class="brand-image" style="height: 20px;">
                                         <small class="float-right">Date: <span id="datetransaction"></span> </small>
                                     </h4>
                                 </div>
-
                                 <!-- /.col -->
                             </div>
                             <!-- info row -->
@@ -55,7 +40,6 @@
                                     Approver
                                     <address>
                                         <strong><span id="tl_approver_name">-</span></strong><br>
-                                        <strong><span id="pic_approver_name">-</span></strong><br>
                                         <strong><span id="tlgam_approver_name">-</span></strong><br>
 
                                     </address>
@@ -80,12 +64,9 @@
                                                 <th>Unit</th>
                                                 <th style="text-align: center">Qty</th>
                                                 <th style="text-align: center">TL Adjustment</th>
-                                                <th style="text-align: center">GAM PIC Adjustment</th>
-                                                <th style="text-align: center">GAM TL Adjustment</th>
+                                                <th style="text-align: center">GAM Adjustment</th>
                                                 <th style="text-align: center">Price per-unit</th>
                                                 <th style="text-align: center">Total Price</th>
-                                                {{-- <th style="text-align: center">Vendor</th> --}}
-                                                {{-- <th style="text-align: center">Apply Adjustment</th> --}}
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -100,11 +81,11 @@
                             <div class="row">
                                 <!-- accepted payments column -->
                                 <div class="col-6">
-                                    {{-- <p class="lead">Request Purpose:</p>
+                                    <p class="lead">Request Purpose:</p>
 
                                     <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
                                         <span id="purpose"></span>
-                                    </p> --}}
+                                    </p>
                                     <p class="lead">Request Reason:</p>
 
                                     <p class="text-muted well well-sm shadow-none" style="margin-top: 10px;">
@@ -122,7 +103,6 @@
 
                                     <div class="table-responsive">
                                         <table class="table">
-
                                             <tr>
                                                 <th>Total Items:</th>
                                                 <td><span id="totalitems"></span></td>
@@ -131,18 +111,6 @@
                                                 <th>Total:</th>
                                                 <td><span id="total"></span></td>
                                             </tr>
-                                            <tr>
-                                                <th>No Receipt:</th>
-                                                <td>
-                                                    <form method="POST">
-                                                        @csrf
-                                                        <input type="hidden" name="idtransaction" id="idtransaction">
-                                                        <input type="text" name="receipt" id="receipt">
-                                                        <input type="submit" name="idsubmit" id="idsubmit">
-                                                    </form>
-
-                                                </td>
-                                            </tr>
                                         </table>
                                     </div>
                                 </div>
@@ -150,13 +118,36 @@
                             </div>
                             <!-- /.row -->
 
-
-                            <!-- /.invoice -->
                         </div><!-- /.col -->
                     </div><!-- /.row -->
                 </div>
                 <div class="modal-footer">
-
+                    {{-- <input type="submit"> --}}
+                    <form name="savedata" method="POST" id="savedata" action="{{ route('approval.savedata_tlgam') }}">
+                        @csrf
+                        <input type="hidden" name="transactionidsave" id="transactionidsave">
+                        <input type="hidden" name="process" id="process" value="Approved">
+                        <input type="hidden" name="hiddennote" id="hiddennotesavedata">
+                        <input type="hidden" name="hiddenarray" id="hiddenarraysavedata">
+                        <input type="hidden" name="hiddenvalue" id="hiddenvaluesavedata">
+                        <button type="button" class="btn btn-success btn-sm" id="b-savedata">Save Data</button>
+                    </form>
+                    <form name="approve" method="POST" id="approve">
+                        @csrf
+                        <input type="hidden" name="transactionidappr" id="transactionidappr">
+                        <input type="hidden" name="process" id="process" value="Approved">
+                        <input type="hidden" name="hiddennote" id="hiddennoteapprove">
+                        <input type="hidden" name="hiddenarray" id="hiddenarrayapprove">
+                        <input type="hidden" name="hiddenvalue" id="hiddenvalueapprove">
+                        <button type="button" class="btn btn-info btn-sm" id="b-approve">Approve</button>
+                    </form>
+                    <form name="reject" method="POST" id="reject">
+                        @csrf
+                        <input type="hidden" name="transactionidrej" id="transactionidrej">
+                        <input type="hidden" name="process" id="process" value="Rejected">
+                        <input type="hidden" name="hiddennote" id="hiddennotereject">
+                        <button type="button" class="btn btn-danger btn-sm" id="b-reject">Reject</button>
+                    </form>
                 </div>
                 {{-- </form> --}}
             </div>
@@ -165,8 +156,7 @@
     @push('child-scripts')
         <script>
             $(document).on('click', '#b-savedata', function(e) {
-                // var getvaluefromtext = document.getElementById("inputnote").value;
-                // document.getElementById("hiddennoteapprove").value = getvaluefromtext;
+
                 var notevalue = document.getElementById("hiddennotesavedata").value;
                 var idget = document.getElementById("hiddenarraysavedata").value;
                 var arrayiddetailget = idget.split(',');
@@ -180,8 +170,6 @@
                 document.getElementById("savedata").submit();
             });
             $(document).on('click', '#b-approve', function(e) {
-                // var getvaluefromtext = document.getElementById("inputnote").value;
-                // document.getElementById("hiddennoteapprove").value = getvaluefromtext;
                 var notevalue = document.getElementById("hiddennoteapprove").value;
                 var idget = document.getElementById("hiddenarrayapprove").value;
                 var arrayiddetailget = idget.split(',');
@@ -195,8 +183,8 @@
                 document.getElementById("approve").submit();
             });
             $(document).on('click', '#b-reject', function(e) {
-                var getvaluefromtext = document.getElementById("inputnote").value;
-                document.getElementById("hiddennotereject").value = getvaluefromtext;
+                // var getvaluefromtext = document.getElementById("inputnote").value;
+                // document.getElementById("hiddennotereject").value = getvaluefromtext;
                 var notevalue = document.getElementById("hiddennotereject").value;
                 document.getElementById("reject").submit();
             });
@@ -243,7 +231,7 @@
                     url: $(this).data('url'),
                     dataType: "json",
                     success: function(response) {
-                        // console.log(reponse.status);
+
                         if (response.status == 404) {
                             alert('Delete Failed');
                         } else {
@@ -256,12 +244,9 @@
 
                             var datetransaction = document.getElementById("datetransaction");
 
-                            // document.getElementById("transactionidappr").value = response.transaction
-                            //     .id;
-                            // document.getElementById("transactionidrej").value = response.transaction.id;
-                            document.getElementById("transaction_id").value = response
-                                .transaction
+                            document.getElementById("transactionidappr").value = response.transaction
                                 .id;
+                            document.getElementById("transactionidrej").value = response.transaction.id;
                             document.getElementById("transactionnumber").innerHTML = response
                                 .transaction
                                 .transactionnumber;
@@ -272,19 +257,17 @@
                                 .orgunit;
                             document.getElementById("purchase_type").innerHTML = response.transaction
                                 .purchase_type;
+
                             document.getElementById("tl_approver_name").innerHTML = response.transaction
                                 .tl_approver_name + ' (' + response.transaction
                                 .tl_approval + ')';
-                            document.getElementById("pic_approver_name").innerHTML = response
-                                .transaction
-                                .pic_approver_name + ' (' + response.transaction
-                                .pic_approval + ')';
+
                             document.getElementById("tlgam_approver_name").innerHTML = response
                                 .transaction
                                 .tlgam_approver_name + ' (' + response.transaction
                                 .tlgam_approval + ')';
-                            // document.getElementById("purpose").innerHTML = response.transaction
-                            //     .purpose;
+                            document.getElementById("purpose").innerHTML = response.transaction
+                                .purpose;
                             document.getElementById("reason").innerHTML = response.transaction
                                 .reason;
                             document.getElementById("tlnote").innerHTML = response.transaction
@@ -296,22 +279,21 @@
                             var arraylength = arraydetail.length;
                             var table = document.getElementById("detailTable").getElementsByTagName(
                                 'tbody')[0];
-                            // if (response.transaction.tlgam_approval == "Pending") {
-                            //     document.getElementById("b-savedata").disabled = false;
-                            //     document.getElementById("b-approve").disabled = false;
-                            //     document.getElementById("b-reject").disabled = false;
-                            // } else {
-                            //     document.getElementById("b-savedata").disabled = true;
-                            //     document.getElementById("b-approve").disabled = true;
-                            //     document.getElementById("b-reject").disabled = true;
-                            // }
+                            if (response.transaction.tlgam_approval == "Pending") {
+                                document.getElementById("b-savedata").disabled = false;
+                                document.getElementById("b-approve").disabled = false;
+                                document.getElementById("b-reject").disabled = false;
+                            } else {
+                                document.getElementById("b-savedata").disabled = true;
+                                document.getElementById("b-approve").disabled = true;
+                                document.getElementById("b-reject").disabled = true;
+                            }
                             let idrFormat = new Intl.NumberFormat('id-ID', {
                                 style: 'currency',
                                 currency: 'IDR',
                             });
                             const arrayiddetail = [];
-                            let inttotalprice = 0;
-                            let sumprice = 0;
+                            var sumprice = 0;
                             var totalitems = 0;
                             for (var i = 0; i < arraylength; i++) {
 
@@ -331,47 +313,53 @@
                                 var cell9 = row.insertCell(8);
                                 var cell10 = row.insertCell(9);
                                 var cell11 = row.insertCell(10);
-                                if (
-                                    response.transaction.detail[i].qty == response.transaction.detail[i]
-                                    .pic_qty &&
-                                    response.transaction.detail[i].qty == response
-                                    .transaction.detail[i].tluser_qty && response.transaction.detail[i]
-                                    .qty == response
-                                    .transaction.detail[i].tlgam_qty) {} else {
-                                    row.setAttribute("style", "background-color: #ffb8c2;")
-                                }
+                                // if (
+                                //     response.transaction.detail[i].qty == response.transaction.detail[i]
+                                //     .pic_qty &&
+                                //     response.transaction.detail[i].qty == response
+                                //     .transaction.detail[i].tluser_qty && response.transaction.detail[i]
+                                //     .qty == response
+                                //     .transaction.detail[i].tlgam_qty) {} else {
+                                //     row.setAttribute("style", "background-color: #ffb8c2;")
+                                // }
                                 cell4.setAttribute("style", "text-align: center;");
                                 cell5.setAttribute("style", "text-align: center;");
+                                //cell6.setAttribute("style", "text-align: center;");
                                 cell6.setAttribute("style", "text-align: center;");
                                 cell7.setAttribute("style", "text-align: center;");
-                                cell8.setAttribute("style", "text-align: center;");
 
                                 cell1.innerHTML = response.transaction.detail[i].items[0].item_code;
                                 cell2.innerHTML = response.transaction.detail[i].items[0].item_name;
                                 cell3.innerHTML = response.transaction.detail[i].items[0].item_unit;
                                 cell4.innerHTML = response.transaction.detail[i].qty;
-                                cell6.innerHTML = response.transaction.detail[i].pic_qty;
+                                //cell6.innerHTML = response.transaction.detail[i].pic_qty;
                                 cell5.innerHTML = response.transaction.detail[i]
                                     .tluser_qty;
 
-                                cell8.innerHTML = idrFormat.format(response.transaction.detail[i]
+                                cell7.innerHTML = idrFormat.format(response.transaction.detail[i]
                                     .transaction_price);
-                                var totalprice = response.transaction.detail[i].transaction_total_price;
-                                // inttotalprice = response.transaction.detail[i].transaction_total_price;
-                                cell9.innerHTML = idrFormat.format(totalprice);
+                                var totalprice = response.transaction.detail[i].transaction_price * response
+                                    .transaction.detail[i].tlgam_qty;
+                                cell8.innerHTML = idrFormat.format(totalprice);
                                 // cell10.innerHTML = response.transaction.detail[i].items[0].vendor;
                                 // var hidden = document.createElement("INPUT");
-                                sumprice += response.transaction.detail[i].transaction_total_price * 1;
+                                sumprice += totalprice;
                                 sumitems = response.transaction.detail[i].tlgam_qty * 1;
                                 totalitems += sumitems;
-                                // var x = document.createElement("INPUT");
+                                var x = document.createElement("INPUT");
                                 var iddetail = response.transaction.detail[i].id;
                                 var newcolid = "col" + i;
+                                x.setAttribute("type", "number");
+                                x.setAttribute("name", "col" + iddetail);
+                                x.setAttribute("style", "width: 50px;");
+                                x.setAttribute("min", "1");
+                                x.setAttribute("required", "required");
+                                x.setAttribute("id", "col" + iddetail);
+                                x.setAttribute("value", response.transaction.detail[i].tlgam_qty);
+                                cell6.appendChild(x);
 
-                                cell7.innerHTML = response.transaction.detail[i].tlgam_qty;;
 
-
-                                var urlupdate = '{{ route('update.detailtlgam') }}';
+                                var urlupdate = '{{ route('approval.approve_ga_tl') }}';
                                 var button = document.createElement("a");
                                 if (response.transaction.tlgam_approval == "Pending") {
                                     button.setAttribute("style", "width: 50px;");
@@ -388,12 +376,13 @@
 
                             }
 
-
-                            document.getElementById("idtransaction").value = response.transaction.id;
-                            document.getElementById("receipt").value = response.transaction.receipt;
+                            document.getElementById("hiddenarrayapprove").value = arrayiddetail;
+                            document.getElementById("hiddenarraysavedata").value = arrayiddetail;
                             document.getElementById("totalitems").innerHTML = totalitems;
-                            // document.getElementById("total").innerHTML = sumprice;
                             document.getElementById("total").innerHTML = idrFormat.format(sumprice);
+
+
+
 
                             $(".overlay").addClass('d-none');
                         }

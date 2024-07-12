@@ -29,7 +29,7 @@
                     <h3 class="card-title">Search Patient</h3>
                 </div> --}}
                 {{-- <div class="card-body">
-                    
+
                 </div> --}}
                 <!-- /.card-header -->
                 {{-- {{ $listemployee }} --}}
@@ -55,7 +55,7 @@
                                 <th>No Transaction</th>
                                 <th>Date</th>
                                 <th>TL Approval status</th>
-                                <th>PIC Approval status</th>
+                                {{-- <th>PIC Approval status</th> --}}
                                 <th>TL GAM Approval status</th>
 
                             </tr>
@@ -74,9 +74,9 @@
                                     <td style="text-align: center;">
                                         {{ $transaction->tl_approver_name }}<br><span @if ($transaction->tl_approval == 'Pending') style="color: red;" @else style="color: blue;" @endif>{{ $transaction->tl_approval }}</span>
                                     </td>
-                                    <td style="text-align: center">
+                                    {{-- <td style="text-align: center">
                                         {{ $transaction->pic_approver_name }}<br><span @if ($transaction->pic_approval == 'Pending') style="color: red;" @else style="color: blue;" @endif>{{ $transaction->pic_approval }}</span>
-                                    </td>
+                                    </td> --}}
                                     <td style="text-align: center">
                                         {{ $transaction->tlgam_approver_name }}<br><span @if ($transaction->tlgam_approval == 'Pending') style="color: red;" @else style="color: blue;" @endif>{{ $transaction->tlgam_approval }}</span>
                                     </td>
@@ -95,7 +95,7 @@
                                 <th>No Transaction</th>
                                 <th>Date</th>
                                 <th>TL Approval status</th>
-                                <th>PIC Approval status</th>
+                                {{-- <th>PIC Approval status</th> --}}
                                 <th>TL GAM Approval status</th>
 
                             </tr>

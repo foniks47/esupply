@@ -65,6 +65,8 @@ Route::post('/approval/pic2', [ApprovalController::class, 'approvepic'])->name('
 Route::get('/approval/pending', [ApprovalController::class, 'pending'])->name('approval.pending')->middleware('auth');
 Route::post('/approval/pending', [ApprovalController::class, 'approve_tl_atl'])->name('approval.approve_tl_atl')->middleware('auth');
 Route::get('/approval/pending_ga', [ApprovalController::class, 'pending_ga'])->name('approval.pending_ga')->middleware('auth');
+Route::post('/approval/pending_ga', [ApprovalController::class, 'approve_ga_tl'])->name('approval.approve_ga_tl')->middleware('auth');
+Route::post('/approval/pending_ga/savedata-tlgam', [ApprovalController::class, 'savedata_tlgam'])->name('approval.savedata_tlgam')->middleware('auth');
 
 
 Route::post('/admin/additem', [AdministrationController::class, 'additem'])->name('admin.additem')->middleware('auth');

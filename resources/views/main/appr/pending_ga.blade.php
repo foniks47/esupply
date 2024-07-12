@@ -91,7 +91,7 @@
                 {{-- {{ $cart }} --}}
                 {{-- @include('main.pr._directaddcart') --}}
 
-                @include('main.appr._detailtlgam')
+                @include('main.appr._detail_tl_gam')
 
                 <!-- /.card-body -->
 

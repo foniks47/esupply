@@ -54,7 +54,7 @@
                                 <th>Purchase Type</th>
                                 <th>No Transaction</th>
                                 <th>Date</th>
-                                <th>TL Approval status</th>
+                                <th>TL/ATL Approval status</th>
                                 {{-- <th>PIC Approval status</th> --}}
                                 <th>TL GAM Approval status</th>
 
@@ -94,7 +94,7 @@
                                 <th>Purchase Type</th>
                                 <th>No Transaction</th>
                                 <th>Date</th>
-                                <th>TL Approval status</th>
+                                <th>TL/ATL Approval status</th>
                                 {{-- <th>PIC Approval status</th> --}}
                                 <th>TL GAM Approval status</th>
 

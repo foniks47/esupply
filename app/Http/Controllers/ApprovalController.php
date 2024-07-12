@@ -273,17 +273,18 @@ class ApprovalController extends Controller
         }
         Transaction::firstWhere('id', ($request->transactionidappr ?? $request->transactionidrej))->update([
             'tl_approval' => $request->process,
-            'tl_note' => $request->hiddennote
+            'tl_note' => $request->hiddennote,
+            'tl_approver_name' => auth()->user()->name
         ]);
         $transaction = Transaction::firstWhere('id', ($request->transactionidappr ?? $request->transactionidrej));
         if ($request->process == 'Approved') {
             if ($transaction->purchase_type == 'Purchase Request Proposal') {
-                if ($transaction->pic_approval == 'Approved' and $transaction->tlgam_approval == 'Approved') {
-                    Transaction::firstWhere('id', ($request->transactionidappr ?? $request->transactionidrej))->update(['status' => 'On Progress']);
+                if ($transaction->tlgam_approval == 'Approved') {
+                    Transaction::firstWhere('id', ($request->transactionidappr ?? $request->transactionidrej))->update(['status' => 'On Progress', 'tl_approver_name' => auth()->user()->name]);
                 }
             }
         } else if ($request->process == 'Rejected') {
-            Transaction::firstWhere('id', ($request->transactionidappr ?? $request->transactionidrej))->update(['status' => 'Rejected']);
+            Transaction::firstWhere('id', ($request->transactionidappr ?? $request->transactionidrej))->update(['status' => 'Rejected', 'tl_approver_name' => auth()->user()->name]);
         }
         return to_route('approval.pending')->with('success', 'Successfully processed');
     }

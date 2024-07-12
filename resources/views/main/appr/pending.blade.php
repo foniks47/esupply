@@ -91,7 +91,7 @@
                 {{-- @include('main.pr._directaddcart') --}}
 
 
-                @include('main.appr._detailtluser')
+                @include('main.appr._detail_tl_atl')
 
                 <!-- /.card-body -->
 

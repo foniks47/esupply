@@ -44,7 +44,7 @@ class ApprovalController extends Controller
     {
 
 
-        // return $request;
+        //return $request;
         if ($request->hiddenvalue) {
             $detailvalue = $request->hiddenvalue;
             $arrayvalue = explode(",", $detailvalue);
@@ -167,6 +167,7 @@ class ApprovalController extends Controller
         }
         return to_route('admin.pr')->with('success', 'Successfully processed');
     }
+
     // public function getdetail($id, $newval)
     // {
 
@@ -189,6 +190,7 @@ class ApprovalController extends Controller
     // }
     public function getdetail(Request $request)
     {
+        //dd($request);
         $id = str_replace("col", "", $request->id);
         $transactiondetail = TransactionDetail::firstWhere('id', $id);
         // return $transactiondetail;
@@ -227,6 +229,7 @@ class ApprovalController extends Controller
     }
     public function getdetailtlgam(Request $request)
     {
+        //dd($request);
         $id = str_replace("col", "", $request->id);
         $transactiondetail = TransactionDetail::firstWhere('id', $id);
         // return $transactiondetail;
@@ -255,6 +258,34 @@ class ApprovalController extends Controller
             "title" =>  "Pending Approval",
             "transaction" => $transaction
         ]);
+    }
+
+    public function approve_tl_atl(Request $request)
+    {
+        //dd($request);
+        if ($request->hiddenvalue) {
+            $detailvalue = $request->hiddenvalue;
+            $arrayvalue = explode(",", $detailvalue);
+            foreach ($arrayvalue as $value) {
+                $separate = explode("|", $value);
+                TransactionDetail::firstWhere('id', $separate[0])->update(['tluser_qty' => $separate[1]]);
+            }
+        }
+        Transaction::firstWhere('id', ($request->transactionidappr ?? $request->transactionidrej))->update([
+            'tl_approval' => $request->process,
+            'tl_note' => $request->hiddennote
+        ]);
+        $transaction = Transaction::firstWhere('id', ($request->transactionidappr ?? $request->transactionidrej));
+        if ($request->process == 'Approved') {
+            if ($transaction->purchase_type == 'Purchase Request Proposal') {
+                if ($transaction->pic_approval == 'Approved' and $transaction->tlgam_approval == 'Approved') {
+                    Transaction::firstWhere('id', ($request->transactionidappr ?? $request->transactionidrej))->update(['status' => 'On Progress']);
+                }
+            }
+        } else if ($request->process == 'Rejected') {
+            Transaction::firstWhere('id', ($request->transactionidappr ?? $request->transactionidrej))->update(['status' => 'Rejected']);
+        }
+        return to_route('approval.pending')->with('success', 'Successfully processed');
     }
 
     public function pending_ga()

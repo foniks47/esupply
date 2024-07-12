@@ -14,7 +14,7 @@
 
     $notiftluserapproverequest = $pr_trans->where('tl_approval', 'Pending')->count();
 
-    $notiftlgamapproverequest = $transaction->where('purchase_type', 'Purchase Request Proposal')->where('tlgam_approval', 'Pending')->count();
+    $notiftlgamapproverequest = $transaction->where('purchase_type', 'Purchase Request Proposal')->where('tl_approval', 'Approved')->where('tlgam_approval', 'Pending')->count();
 @endphp
 
 <body class="control-sidebar-slide-open text-sm sidebar-mini layout-fixed">

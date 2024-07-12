@@ -63,6 +63,7 @@ Route::get('/approval/pic2', [ApprovalController::class, 'pic'])->name('approval
 Route::post('/approval/pic2', [ApprovalController::class, 'approvepic'])->name('approval.approvepic2');
 
 Route::get('/approval/pending', [ApprovalController::class, 'pending'])->name('approval.pending')->middleware('auth');
+Route::post('/approval/pending', [ApprovalController::class, 'approve_tl_atl'])->name('approval.approve_tl_atl')->middleware('auth');
 Route::get('/approval/pending_ga', [ApprovalController::class, 'pending_ga'])->name('approval.pending_ga')->middleware('auth');
 
 

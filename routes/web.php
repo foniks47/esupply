@@ -30,7 +30,7 @@ use App\Http\Controllers\UserStockController;
 // });
 Route::get('/', [WelcomeController::class, 'index'])->name('welcome')->middleware('auth');
 Route::get('/stock', [UserStockController::class, 'index'])->name('user.stock')->middleware('auth');
-Route::get('/login', [LoginController::class, 'index'])->name('loginpage');
+Route::get('/login', [LoginController::class, 'index'])->name('loginpage')->middleware('guest');
 Route::post('/login', [LoginController::class, 'authenticate'])->name('authuser');
 Route::post('/logout', [LoginController::class, 'logout'])->name('logoutpage');
 Route::get('/pr/history', [PurchaseController::class, 'history'])->name('purchase.history')->middleware('auth');

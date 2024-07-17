@@ -125,7 +125,7 @@ class PurchaseController extends Controller
         } else {
             $purchase_type = 'Purchase Request Proposal';
             $status = "Received";
-            $returnmessage = "Request Submitted";
+            $returnmessage = "Request Submitted. Please inform your TL or ATL for your request approval.";
             $approver = User::firstWhere('id_user_me', auth()->user()->id_user_me_approver);
             $approver_pic = User::firstWhere('id_user_me', 2375);
             $approver_tlgam = User::firstWhere('id_user_me', 955);

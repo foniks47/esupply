@@ -232,6 +232,11 @@ class PurchaseController extends Controller
 
     public function propose()
     {
+        if (auth()->user()->priv != 'picteam')
+        {
+            return abort(403);
+        }
+
         $items = Items::all();
         $cart = Cart::where('id_user', auth()->user()->id_user_me)->firstWhere('cart_type', 'Purchase Request Proposal');
         if ($cart) {

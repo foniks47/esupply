@@ -263,6 +263,7 @@
                 "responsive": true,
                 "lengthChange": false,
                 "autoWidth": false,
+                "pageLength": 15,
                 //"order": [
                  //   [1, 'asc']
                 //],
